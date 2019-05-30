@@ -1,0 +1,3 @@
+Pokud používáte CloudAMQP.com, tak připojení může vypadat takhle:
+
+$connection = new AMQPStreamConnection('macaw.rmq.cloudamqp.com', 5672, 'azeijfro', 'AcaEmtDEpRkIfOApdGhVIMYJN28hXwhz', 'azeijfro');
