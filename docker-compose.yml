@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+    dev:
+        build:
+            context: ./docker/php
+        ports:
+            - "9001:9001"
+        volumes:
+            - .:/srv/app
+            - ./docker/php/supervisor:/etc/supervisor/conf.d
+        links:
+            - rabbitmq
+
+    rabbitmq:
+        image: rabbitmq:3.7.15-management-alpine
+        hostname: rabbitmq1
+        ports:
+            - "5672:5672"
+            - "15672:15672"
