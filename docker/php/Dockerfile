@@ -1,14 +1,15 @@
-FROM php:7.3.5-cli
+FROM php:7.4.14-cli
 
 RUN apt-get update && apt-get install -y \
         supervisor \
         vim \
         htop \
+        unzip \
+        zip \
         libzip-dev \
     && docker-php-ext-install -j$(nproc) bcmath \
     && docker-php-ext-install -j$(nproc) sockets \
     && docker-php-ext-install -j$(nproc) pcntl \
-    && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) zip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -18,7 +19,7 @@ RUN echo "memory_limit = -1;" > $PHP_INI_DIR/conf.d/memory_limit.ini \
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
 
 COPY supervisor/webui.conf /etc/supervisor/conf.d/webui.conf
 EXPOSE 9001
