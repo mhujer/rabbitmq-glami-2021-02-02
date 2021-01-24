@@ -3,12 +3,13 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->exchange_declare('images', 'direct', false, false, false);
+$channel->exchange_declare('images', AMQPExchangeType::DIRECT, false, false, false);
 $channel->queue_declare('images_resize', false, false, false, false);
 $channel->queue_declare('images_compress', false, false, false, false);
 

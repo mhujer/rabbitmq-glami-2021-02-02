@@ -3,12 +3,13 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
 $channel = $connection->channel();
 
-$channel->exchange_declare('order_completed', 'fanout', false, false, false);
+$channel->exchange_declare('order_completed', AMQPExchangeType::FANOUT, false, false, false);
 $channel->queue_declare('order_email_notification', false, false, false, false);
 $channel->queue_declare('order_sms_notification', false, false, false, false);
 $channel->queue_declare('order_stock_recalculation', false, false, false, false);
