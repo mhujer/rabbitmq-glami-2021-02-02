@@ -16,9 +16,7 @@ $channel->basic_consume('emails', '', false, false, false, false, function (AMQP
     $data = $message->getBody();
     echo 'Processing message: ' . $data . "\n";
 
-    /** @var \PhpAmqpLib\Channel\AMQPChannel $channel */
-    $channel = $message->delivery_info['channel'];
-    $channel->basic_reject($message->delivery_info['delivery_tag'], true);
+    $message->reject($requeue = true);
 
     echo 'Cannot process message right now, API is down. Requeueing.' . "\n";
     // sleep(2);

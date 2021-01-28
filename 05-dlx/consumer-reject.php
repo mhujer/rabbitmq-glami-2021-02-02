@@ -26,9 +26,7 @@ $channel->basic_consume('emails', '', false, false, false, false, function (AMQP
     $data = $message->getBody();
     echo 'Processing message: ' . $data . "\n";
 
-    /** @var \PhpAmqpLib\Channel\AMQPChannel $channel */
-    $channel = $message->delivery_info['channel'];
-    $channel->basic_reject($message->delivery_info['delivery_tag'], false);
+    $message->reject(false);
 
     echo 'Message is invalid! It was discarded.' . "\n";
 });

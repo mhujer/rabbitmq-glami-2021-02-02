@@ -19,9 +19,7 @@ $channel->basic_consume('emails', '', false, false, false, false, function (AMQP
     echo date('Y-m-d H:i:s') . ': Processing message: ' . $data . "\n";
     sleep(1);
 
-    /** @var \PhpAmqpLib\Channel\AMQPChannel $channel */
-    $channel = $message->delivery_info['channel'];
-    $channel->basic_ack($message->delivery_info['delivery_tag']);
+    $message->ack();
 
     echo date('Y-m-d H:i:s') . ': Processed!' . "\n";
 });

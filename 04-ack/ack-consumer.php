@@ -17,9 +17,7 @@ $channel->basic_consume('emails', '', false, false, false, false, function (AMQP
     echo 'Processing message: ' . $data . "\n";
     sleep(30);
 
-    /** @var \PhpAmqpLib\Channel\AMQPChannel $channel */
-    $channel = $message->delivery_info['channel'];
-    $channel->basic_ack($message->delivery_info['delivery_tag']);
+    $message->ack();
 
     echo 'Processed!' . "\n";
 });

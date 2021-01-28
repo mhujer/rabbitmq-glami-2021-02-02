@@ -19,7 +19,7 @@ $channel->basic_consume('perfdemo', '', false, false, false, false, function (AM
     if ($i % 1000 === 0) {
         echo date('Y-m-d H:i:s') . ' [x] Received ' . $i . "\n";
     }
-    $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
+    $message->ack();
 });
 
 while (count($channel->callbacks)) {
