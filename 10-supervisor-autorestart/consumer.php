@@ -8,15 +8,16 @@ use PhpAmqpLib\Message\AMQPMessage;
 $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest', '/');
 $channel = $connection->channel();
 
-$channel->queue_declare('emails', false, false, false, false);
+$channel->queue_declare('emails', false, true, false, false);
 
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
 $consumedMessagesCount = 0;
 
-$channel->basic_consume('emails', '', false, true, false, false, function (AMQPMessage $message) use (&$consumedMessagesCount) {
+$channel->basic_consume('emails', '', false, false, false, false, function (AMQPMessage $message) use (&$consumedMessagesCount) {
     $data = $message->getBody();
     var_dump($data);
+    $message->ack();
 
     $consumedMessagesCount++;
 });

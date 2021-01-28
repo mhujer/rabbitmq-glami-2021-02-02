@@ -10,7 +10,7 @@ $channel = $connection->channel();
 
 $channel->queue_declare('emails', false, true, false, false);
 
-for ($i = 0; $i < 10; $i++) {
+for ($i = 0; $i < 100; $i++) {
     $message = new AMQPMessage(sprintf('It\'s %s here', date('Y-m-d H:i:s')));
 
     $channel->basic_publish($message, '', 'emails');

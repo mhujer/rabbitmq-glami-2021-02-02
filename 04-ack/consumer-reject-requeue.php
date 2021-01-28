@@ -18,6 +18,7 @@ $channel->basic_consume('emails', '', false, false, false, false, function (AMQP
 
     $message->reject($requeue = true);
 
+    echo date('Y-m-d H:i:s') . ': ';
     echo 'Cannot process message right now, API is down. Requeueing.' . "\n";
     // sleep(2);
 });

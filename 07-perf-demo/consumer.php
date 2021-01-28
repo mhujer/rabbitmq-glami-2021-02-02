@@ -9,7 +9,7 @@ $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest', '/');
 $channel = $connection->channel();
 
 $channel->queue_declare('perfdemo', false, true, false, false);
-$channel->basic_qos(null, 100, null);
+$channel->basic_qos(null, 100, false);
 
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
